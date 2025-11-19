@@ -1,4 +1,4 @@
-{{-- resources/views/services/show.blade.php --}}
+<!-- {{-- resources/views/services/show.blade.php --}}
 @extends('layouts.app')
 @section('title', $service->title . ' — Services')
 @section('content')
@@ -12,4 +12,4 @@
             </ul>
         @endif
     </x-section>
-@endsection
+@endsection -->
