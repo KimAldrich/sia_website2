@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Partner;
+use App\Support\SiteContent;
 
 class PartnerController extends Controller
 {
     public function index()
     {
-        $partners = Partner::latest()->get();
+        $partners = collect(SiteContent::partners());
         return view('partners.index', compact('partners'));
     }
 }

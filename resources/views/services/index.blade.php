@@ -95,14 +95,10 @@
                 <div class="grid grid-3">
                     @foreach($services as $s)
                         <article class="card service-card">
-                            <a href="{{ route('services.show', $s) }}" class="service-title">{{ $s->title }}</a>
-                            <p class="service-excerpt">{{ $s->excerpt }}</p>
+                            <a href="{{ url('/services/' . $s['slug']) }}" class="service-title">{{ $s['title'] }}</a>
+                            <p class="service-excerpt">{{ $s['excerpt'] }}</p>
                         </article>
                     @endforeach
-                </div>
-
-                <div class="pagination">
-                    {{ $services->links() }}
                 </div>
             @endif
 

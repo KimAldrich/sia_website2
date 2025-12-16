@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Service;
-use App\Models\Project;
+use App\Support\SiteContent;
 
 class PageController extends Controller
 {
     public function home()
     {
-        $services = Service::limit(3)->get();
-        $projects = Project::latest()->limit(3)->get();
+        $services = collect(SiteContent::services())->take(3);
+        $projects = collect(SiteContent::projects())->take(4);
         return view('pages.home', compact('services','projects'));
     }
 

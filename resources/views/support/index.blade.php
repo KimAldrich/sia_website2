@@ -20,77 +20,16 @@
             <article class="card">
                 <h2 class="section-title">FAQs</h2>
 
-                {{-- Static FAQs you provided --}}
                 <div class="faq-list">
-                    <details class="faq" open>
-                        <summary>What kind of technology do you use for waste reduction?</summary>
-                        <div class="faq-body">
-                            We use predictive modeling and proprietary algorithms to optimize resource use and reduce
-                            waste across operations, with dashboards for transparent monitoring.
-                        </div>
-                    </details>
-
-                    {{-- FAQ 2 --}}
-                    <details class="faq">
-                        <summary>Can your software integrate with existing legacy systems?</summary>
-                        <div class="faq-body">
-                            Yes. Our solutions are designed for high adaptability and interoperability.
-                            We provide API connectors and custom adapters to integrate with various legacy platforms and
-                            enterprise tools.
-                        </div>
-                    </details>
-
-                    {{-- FAQ 3 --}}
-                    <details class="faq">
-                        <summary>Do you provide cloud-based deployment options?</summary>
-                        <div class="faq-body">
-                            Absolutely. Our services can be deployed on the cloud, on-premises, or in hybrid
-                            configurations depending on your infrastructure and data governance requirements.
-                        </div>
-                    </details>
-
-                    {{-- FAQ 4 --}}
-                    <details class="faq">
-                        <summary>How do you ensure data privacy and security?</summary>
-                        <div class="faq-body">
-                            We follow ISO/IEC 27001 standards and regional data protection laws.
-                            All data transmissions are encrypted, and we implement multi-layered access control and
-                            regular security audits.
-                        </div>
-                    </details>
-
-                    {{-- FAQ 5 --}}
-                    <details class="faq">
-                        <summary>What kind of support and training do you provide?</summary>
-                        <div class="faq-body">
-                            We offer onboarding sessions, documentation, and 24/7 support through email and chat.
-                            Custom training workshops are also available for teams transitioning to sustainable digital
-                            systems.
-                        </div>
-                    </details>
-
-                    {{-- FAQ 6 --}}
-                    <details class="faq">
-                        <summary>How much does it cost to start with FortiVine Tech solutions?</summary>
-                        <div class="faq-body">
-                            Pricing varies depending on project scale, customization level, and deployment type.
-                            We begin with a free consultation to assess your needs and provide a detailed quotation.
-                        </div>
-                    </details>
+                    @foreach($faqs as $faq)
+                        <details class="faq" {{ $loop->first ? 'open' : '' }}>
+                            <summary>{{ $faq['question'] }}</summary>
+                            <div class="faq-body">
+                                {{ $faq['answer'] }}
+                            </div>
+                        </details>
+                    @endforeach
                 </div>
-
-                {{-- Optional: additional FAQs from database --}}
-                @php($faqs = \App\Models\Faq::all())
-                @if($faqs->count())
-                    <div class="faq-list" style="margin-top:1rem;">
-                        @foreach($faqs as $f)
-                            <details class="faq">
-                                <summary>{{ $f->question }}</summary>
-                                <div class="faq-body">{{ $f->answer }}</div>
-                            </details>
-                        @endforeach
-                    </div>
-                @endif
             </article>
 
             {{-- Support Ticket Form --}}

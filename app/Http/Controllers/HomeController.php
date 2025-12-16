@@ -1,15 +1,15 @@
 <?php // app/Http/Controllers/HomeController.php
 namespace App\Http\Controllers;
-use App\Models\{Service, Project, Event, Testimonial};
+use App\Support\SiteContent;
 class HomeController extends Controller
 {
     public function __invoke()
     {
         return view('home', [
-            'services' => Service::limit(3)->get(),
-            'projects' => Project::latest()->limit(3)->get(),
-            'events' => Event::orderBy('start_at', 'desc')->limit(3)->get(),
-            'quotes' => Testimonial::limit(2)->get(),
+            'services' => collect(SiteContent::services())->take(3),
+            'projects' => collect(SiteContent::projects())->take(3),
+            'events' => collect(SiteContent::events())->take(3),
+            'quotes' => collect(SiteContent::testimonials())->take(2),
         ]);
     }
 }

@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
+use App\Support\SiteContent;
 
 class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::orderBy('start_at', 'desc')->paginate(20);
+        $events = collect(SiteContent::events());
         return view('events.index', compact('events'));
     }
-    public function show(Event $event)
+    public function show(string $slug)
     {
+        $event = collect(SiteContent::events())->firstWhere('slug', $slug);
+        abort_unless($event, 404);
+
         return view('events.show', compact('event'));
     }
 }

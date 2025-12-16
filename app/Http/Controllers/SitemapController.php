@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\URL;
-use App\Models\{Service, Project, Event};
+use App\Support\SiteContent;
 
 class SitemapController extends Controller
 {
@@ -29,12 +29,12 @@ class SitemapController extends Controller
             url('/legal/terms'),
             url('/legal/privacy'),
         ];
-        foreach (Service::pluck('slug') as $s)
-            $urls[] = url("/services/$s");
-        foreach (Project::pluck('slug') as $p)
-            $urls[] = url("/projects/$p");
-        foreach (Event::pluck('slug') as $e)
-            $urls[] = url("/events/$e");
+        foreach (SiteContent::services() as $s)
+            $urls[] = url("/services/{$s['slug']}");
+        foreach (SiteContent::projects() as $p)
+            $urls[] = url("/projects/{$p['slug']}");
+        foreach (SiteContent::events() as $e)
+            $urls[] = url("/events/{$e['slug']}");
 
         return Response::view('sitemap.xml', compact('urls'))->header('Content-Type', 'application/xml');
     }

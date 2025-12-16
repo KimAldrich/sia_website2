@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Testimonial;
+use App\Support\SiteContent;
 
 class TestimonialController extends Controller
 {
     public function index()
     {
-        $testimonials = Testimonial::latest()->get();
+        $testimonials = collect(SiteContent::testimonials());
         return view('testimonials.index', compact('testimonials'));
     }
 }

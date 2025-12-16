@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Faq;
-use App\Models\ContactMessage;
 use Illuminate\Support\Facades\Mail;
+use App\Support\SiteContent;
 
 class SupportController extends Controller
 {
-    public function index() { $faqs = Faq::all(); return view('support.index', compact('faqs')); }
+    public function index()
+    {
+        $faqs = collect(SiteContent::faqs());
+        return view('support.index', compact('faqs'));
+    }
 
     public function store(Request $request)
     {
@@ -20,11 +23,7 @@ class SupportController extends Controller
             'subject'=>'required|string|max:160',
             'message'=>'required|string|min:10',
         ]);
-        $data['type'] = 'support';
-        $data['status'] = 'new';
-        $msg = ContactMessage::create($data);
-
-        Mail::raw("Support ticket from {$msg->name} ({$msg->email})\n\n{$msg->message}", function($m){
+        Mail::raw("Support ticket from {$data['name']} ({$data['email']})\n\n{$data['message']}", function($m){
             $m->to('support@fortivinetech.com')->subject('New Support Ticket');
         });
 

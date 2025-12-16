@@ -1,6 +1,6 @@
 <?php // app/Http/Controllers/DashboardController.php
 namespace App\Http\Controllers;
-use App\Models\{Service, Project, Event, ContactMessage};
+use App\Support\SiteContent;
 class DashboardController extends Controller
 {
     public function __invoke()
@@ -8,10 +8,10 @@ class DashboardController extends Controller
         $this->middleware('auth');
         return view('dashboard', [
             'counts' => [
-                'services' => Service::count(),
-                'projects' => Project::count(),
-                'events' => Event::count(),
-                'messages' => ContactMessage::count(),
+                'services' => count(SiteContent::services()),
+                'projects' => count(SiteContent::projects()),
+                'events' => count(SiteContent::events()),
+                'messages' => 0,
             ]
         ]);
     }
